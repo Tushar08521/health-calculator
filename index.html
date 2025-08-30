@@ -1,160 +1,389 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>All-in-One Health Calculator | Free Online Tools</title>
-  <!-- Change the description for SEO -->
-  <meta name="description" content="Free all-in-one health calculator with BMI, BMR, TDEE, Pregnancy Due Date, VO₂max, Child Growth, Heart Rate Zones & more. Mobile-friendly and SEO optimized." />
-  <!-- Change keywords for SEO -->
-  <meta name="keywords" content="health calculator, BMI calculator, BMR calculator, TDEE, Pregnancy due date, VO2max, child growth calculator, calorie calculator, online calculator" />
-  <meta name="author" content="Your Name" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All-in-One Health Calculator | Free Tools</title>
+<meta name="description" content="Free online health calculators: BMI, BMR, TDEE, Body Fat, Ideal Weight, Ovulation, Cholesterol, Water Intake, Waist-Hip Ratio.">
+<meta name="keywords" content="health calculator, BMI, BMR, TDEE, Calorie, Body Fat, Ideal Weight, Ovulation, Cholesterol, Water Intake, Waist-Hip Ratio">
+<meta name="author" content="Tushar Ahmed">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Change your Google Search Console verification code -->
-  <meta name="google-site-verification" content="YOUR_GSC_VERIFICATION_CODE" />
+<!-- Structured Data (JSON-LD) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "All-in-One Health Calculator",
+  "url": "https://Tushar08521.github.io/health-calculator/",
+  "description": "Free online health calculators: BMI, BMR, TDEE, Body Fat, Ideal Weight, Ovulation, Cholesterol, Water Intake, Waist-Hip Ratio.",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "All",
+  "creator": {
+    "@type": "Person",
+    "name": "Tushar Ahmed"
+  }
+}
+</script>
 
-  <!-- Open Graph / Social Media - change URL and image -->
-  <meta property="og:title" content="All-in-One Health Calculator" />
-  <meta property="og:description" content="Free calculators for BMI, BMR, TDEE, Pregnancy Due Date, VO₂max, Heart Rate Zones, and more." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://yourdomain.com/" /> <!-- Change to your website URL -->
-  <meta property="og:image" content="https://yourdomain.com/og-image.jpg" /> <!-- Change to your OG image URL -->
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="All-in-One Health Calculator" />
-  <meta name="twitter:description" content="Free calculators for BMI, BMR, Pregnancy Due Date, VO₂max, Heart Rate Zones, and more." />
-  <meta name="twitter:image" content="https://yourdomain.com/og-image.jpg" /> <!-- Change to your Twitter image URL -->
-
-  <!-- Google Analytics - replace 'G-XXXXXXXXXX' with your GA4 Measurement ID -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script defer>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
-  </script>
-
-  <style>
-    html { scroll-behavior: smooth; }
-    body{font-family:Arial,sans-serif;margin:0;padding:0;line-height:1.6;transition:background .3s,color .3s}
-    header{position:sticky;top:0;background:#2c3e50;color:#fff;padding:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-    nav a{color:#fff;margin:5px 10px;text-decoration:none;font-weight:bold}
-    nav a:hover{text-decoration:underline}
-    .dark-mode{background:#121212;color:#e0e0e0}
-    .container{max-width:800px;margin:auto;padding:20px}
-    section{margin-bottom:40px}
-    h2{border-bottom:2px solid #ccc;padding-bottom:5px}
-    input,select,button{width:100%;padding:8px;margin-bottom:10px}
-    button{background:#3498db;color:#fff;border:none;cursor:pointer}
-    button:hover{background:#2980b9}
-    ul#toc{list-style:none;padding:0;margin-bottom:20px}
-    ul#toc li{margin-bottom:5px}
-    ul#toc a{color:#3498db;text-decoration:none}
-    ul#toc a:hover{text-decoration:underline}
-    @media (prefers-color-scheme: dark){body{background:#121212;color:#e0e0e0}}
-  </style>
+<style>
+body{font-family:Arial,sans-serif;margin:0;padding:0;background:#f9f9f9;color:#333;transition:background .3s,color .3s;}
+header{background:#2c3e50;color:#fff;padding:15px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;position:sticky;top:0;z-index:999;}
+nav a{color:#fff;margin:0 10px;text-decoration:none;font-weight:bold;}
+nav a:hover{text-decoration:underline;}
+dark-mode{background:#121212;color:#e0e0e0;}
+.container{max-width:900px;margin:auto;padding:20px;}
+section{margin-bottom:20px;border-radius:10px;padding:15px;background:#fff;box-shadow:0 4px 8px rgba(0,0,0,0.1);}
+h1,h2{margin-top:0;}
+h2{cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:5px 0;}
+.collapsible-content{display:none;padding:10px 0;}
+input,select,button{width:100%;padding:10px;margin:5px 0;box-sizing:border-box;border-radius:5px;border:1px solid #ccc;}
+button{background:#3498db;color:#fff;border:none;cursor:pointer;transition:0.3s;}
+button:hover{background:#2980b9;}
+.result{font-weight:bold;margin-top:10px;padding:8px;border-radius:5px;}
+.chart-container{max-width:400px;margin:15px auto;}
+.tooltip-container{position:relative;display:inline-block;cursor:pointer;margin-left:5px;}
+.tooltip-container .tooltip-text{visibility:hidden;width:180px;background:#555;color:#fff;text-align:center;border-radius:5px;padding:5px;position:absolute;z-index:1;bottom:125%;left:50%;margin-left:-90px;opacity:0;transition:opacity 0.3s;font-size:12px;}
+.tooltip-container:hover .tooltip-text{visibility:visible;opacity:1;}
+footer{text-align:center;padding:15px;border-top:1px solid #ccc;margin-top:20px;background:#ecf0f1;}
+@media(max-width:600px){nav a{margin:5px 0;display:block;text-align:center;}}
+</style>
 </head>
+
 <body>
-  <header>
-    <div>⚕️ Health Calculator</div>
-    <nav>
-      <a href="#bmi">BMI</a>
-      <a href="#bmr">BMR</a>
-      <a href="#tdee">TDEE</a>
-      <a href="#calorie">Calorie</a>
-      <a href="#bodyfat">Body Fat</a>
-      <a href="#idealweight">Ideal Weight</a>
-      <a href="#ovulation">Ovulation</a>
-      <a href="#cholesterol">Cholesterol</a>
-      <a href="#water">Water Intake</a>
-      <a href="#whr">Waist-Hip Ratio</a>
-    </nav>
-    <button onclick="toggleDarkMode()">🌙</button>
-  </header>
 
-  <div class="container">
-    <h1>All-in-One Health Calculator</h1>
-    <p>Use our free calculators for BMI, BMR, TDEE, Calorie, Body Fat, Ideal Weight, Ovulation, Cholesterol, Water Intake, Waist-to-Hip Ratio & more. Works on any device.</p>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-503116167"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-503116167');
+</script>
+<!-- End Google Analytics -->
 
-    <!-- Table of Contents -->
-    <section>
-      <h2>Table of Contents</h2>
-      <ul id="toc">
-        <li><a href="#bmi">BMI Calculator</a></li>
-        <li><a href="#bmr">BMR Calculator</a></li>
-        <li><a href="#tdee">TDEE Calculator</a></li>
-        <li><a href="#calorie">Calorie Calculator</a></li>
-        <li><a href="#bodyfat">Body Fat Calculator</a></li>
-        <li><a href="#idealweight">Ideal Weight Calculator</a></li>
-        <li><a href="#ovulation">Ovulation Calculator</a></li>
-        <li><a href="#cholesterol">Cholesterol Calculator</a></li>
-        <li><a href="#water">Water Intake Calculator</a></li>
-        <li><a href="#whr">Waist-Hip Ratio Calculator</a></li>
-      </ul>
-    </section>
+<header>
+  <div>⚕️ Health Calculator</div>
+  <nav aria-label="Main Navigation">
+    <a href="#bmi">BMI</a>
+    <a href="#bmr">BMR</a>
+    <a href="#tdee">TDEE</a>
+    <a href="#calorie">Calorie</a>
+    <a href="#bodyfat">Body Fat</a>
+    <a href="#idealweight">Ideal Weight</a>
+    <a href="#ovulation">Ovulation</a>
+    <a href="#cholesterol">Cholesterol</a>
+    <a href="#water">Water Intake</a>
+    <a href="#whr">Waist-Hip Ratio</a>
+  </nav>
+  <button onclick="toggleDarkMode()" aria-label="Toggle Dark Mode">🌙</button>
+</header>
 
-    <!-- All calculator sections below -->
+<main class="container">
+<h1>All-in-One Health Calculator</h1>
+<p>Use our free calculators for BMI, BMR, TDEE, Calorie Needs, Body Fat, Ideal Weight, Ovulation, Cholesterol, Water Intake, Waist-to-Hip Ratio & more. Works on any device.</p>
 
-    <!-- Example of BMI Calculator section, you can update placeholders if needed -->
-    <section id="bmi">
-      <h2>BMI Calculator</h2>
-      <input type="number" id="bmiWeight" placeholder="Weight (kg)" /> <!-- You can change placeholder text if needed -->
-      <input type="number" id="bmiHeight" placeholder="Height (cm)" />
-      <button onclick="calcBMI()">Calculate BMI</button>
-      <p id="bmiResult"></p>
-    </section>
+<!-- ====== BMI Calculator ====== -->
+<section id="bmi">
+<h2 onclick="toggleSection(this)">BMI Calculator <span>▼</span></h2>
+<div class="collapsible-content">
+<label>Weight (kg) <span class="tooltip-container">?<span class="tooltip-text">Enter your weight in kilograms</span></span></label>
+<input type="number" id="bmiWeight" min="1" placeholder="e.g. 70">
+<label>Height (cm) <span class="tooltip-container">?<span class="tooltip-text">Enter your height in centimeters</span></span></label>
+<input type="number" id="bmiHeight" min="30" max="300" placeholder="e.g. 175">
+<button onclick="calcBMI()">Calculate BMI</button>
+<p id="bmiResult" class="result" role="region" aria-live="polite"></p>
+<div class="chart-container"><canvas id="bmiChart"></canvas></div>
+</div>
+</section>
 
-    <!-- Repeat for all other calculator sections -->
+<!-- ====== BMR Calculator ====== -->
+<section id="bmr">
+<h2 onclick="toggleSection(this)">BMR Calculator <span>▼</span></h2>
+<div class="collapsible-content">
+<label>Weight (kg)</label>
+<input type="number" id="bmrWeight" min="1">
+<label>Height (cm)</label>
+<input type="number" id="bmrHeight" min="30">
+<label>Age</label>
+<input type="number" id="bmrAge" min="1">
+<label>Gender</label>
+<select id="bmrGender"><option value="male">Male</option><option value="female">Female</option></select>
+<button onclick="calcBMR()">Calculate BMR</button>
+<p id="bmrResult" class="result" role="region" aria-live="polite"></p>
+</div>
+</section>
 
-  </div>
+<!-- ====== TDEE Calculator ====== -->
+<section id="tdee">
+<h2 onclick="toggleSection(this)">TDEE Calculator <span>▼</span></h2>
+<div class="collapsible-content">
+<label>BMR (from BMR calculator)</label>
+<input type="number" id="tdeeBMR" min="1">
+<label>Activity Level</label>
+<select id="activity">
+<option value="1.2">Sedentary</option>
+<option value="1.375">Light</option>
+<option value="1.55">Moderate</option>
+<option value="1.725">Active</option>
+<option value="1.9">Very Active</option>
+</select>
+<button onclick="calcTDEE()">Calculate TDEE</button>
+<p id="tdeeResult" class="result" role="region" aria-live="polite"></p>
+</div>
+</section>
 
-  <script defer>
-    // Dark mode toggle
-    function toggleDarkMode(){document.body.classList.toggle('dark-mode');}
+<!-- ====== Calorie Needs Calculator ====== -->
+<section id="calorie">
+<h2 onclick="toggleSection(this)">Calorie Needs Calculator <span>▼</span></h2>
+<div class="collapsible-content">
+<label>Weight (kg)</label>
+<input type="number" id="calorieWeight" min="1">
+<label>Height (cm)</label>
+<input type="number" id="calorieHeight" min="30">
+<label>Age</label>
+<input type="number" id="calorieAge" min="1">
+<label>Gender</label>
+<select id="calorieGender"><option value="male">Male</option><option value="female">Female</option></select>
+<label>Activity Level</label>
+<select id="calorieActivity">
+<option value="1.2">Sedentary</option>
+<option value="1.375">Light</option>
+<option value="1.55">Moderate</option>
+<option value="1.725">Active</option>
+<option value="1.9">Very Active</option>
+</select>
+<button onclick="calcCalories()">Calculate Calories</button>
+<p id="calorieResult" class="result" role="region" aria-live="polite"></p>
+</div>
+</section>
 
-    // BMI calculation function
-    function calcBMI(){
-      const w=parseFloat(document.getElementById('bmiWeight').value);
-      const h=parseFloat(document.getElementById('bmiHeight').value)/100;
-      document.getElementById('bmiResult').innerText=(w>0 && h>0)?`Your BMI is ${(w/(h*h)).toFixed(2)}`:"Please enter valid numbers.";
-    }
+<!-- ====== Body Fat Calculator ====== -->
+<section id="bodyfat">
+<h2 onclick="toggleSection(this)">Body Fat Calculator <span>▼</span></h2>
+<div class="collapsible-content">
+<label>Weight (kg)</label>
+<input type="number" id="bfWeight" min="1">
+<label>Waist (cm)</label>
+<input type="number" id="bfWaist" min="30">
+<label>Hip (cm)</label>
+<input type="number" id="bfHip" min="30">
+<label>Gender</label>
+<select id="bfGender"><option value="male">Male</option><option value="female">Female</option></select>
+<button onclick="calcBodyFat()">Calculate Body Fat</button>
+<p id="bodyfatResult" class="result" role="region" aria-live="polite"></p>
+<div class="chart-container"><canvas id="bfChart"></canvas></div>
+</div>
+</section>
 
-    // Add comments in other functions indicating where to change inputs or messages
-    function calcBMR(){
-      /* Change formula if needed for custom calculations */
-    }
+<!-- ====== Ideal Weight Calculator ====== -->
+<section id="idealweight">
+<h2 onclick="toggleSection(this)">Ideal Weight Calculator <span>▼</span></h2>
+<div class="collapsible-content">
+<label>Height (cm)</label>
+<input type="number" id="iwHeight" min="30">
+<label>Gender</label>
+<select id="iwGender"><option value="male">Male</option><option value="female">Female</option></select>
+<button onclick="calcIdealWeight()">Calculate Ideal Weight</button>
+<p id="iwResult" class="result" role="region" aria-live="polite"></p>
+</div>
+</section>
 
-    function calcTDEE(){
-      /* Change activity multipliers or labels if desired */
-    }
+<!-- ====== Ovulation Calculator ====== -->
+<section id="ovulation">
+<h2 onclick="toggleSection(this)">Ovulation Calculator <span>▼</span></h2>
+<div class="collapsible-content">
+<label>First day of last period</label>
+<input type="date" id="lastPeriod">
+<button onclick="calcOvulation()">Calculate Ovulation</button>
+<p id="ovResult" class="result" role="region" aria-live="polite"></p>
+</div>
+</section>
 
-    function calcCalories(){
-      /* Update placeholders or messages for your users */
-    }
+<!-- ====== Cholesterol Calculator ====== -->
+<section id="cholesterol">
+<h2 onclick="toggleSection(this)">Cholesterol Calculator <span>▼</span></h2>
+<div class="collapsible-content">
+<label>Total Cholesterol (mg/dL)</label>
+<input type="number" id="cholesterolTotal" min="1">
+<label>HDL (mg/dL)</label>
+<input type="number" id="hdl" min="1">
+<label>LDL (mg/dL)</label>
+<input type="number" id="ldl" min="1">
+<button onclick="calcCholesterol()">Calculate Cholesterol</button>
+<p id="cholResult" class="result" role="region" aria-live="polite"></p>
+</div>
+</section>
 
-    function calcBodyFat(){
-      /* Adjust formula or labels if necessary */
-    }
+<!-- ====== Water Intake Calculator ====== -->
+<section id="water">
+<h2 onclick="toggleSection(this)">Water Intake Calculator <span>▼</span></h2>
+<div class="collapsible-content">
+<label>Weight (kg)</label>
+<input type="number" id="waterWeight" min="1">
+<button onclick="calcWater()">Calculate Water Intake</button>
+<p id="waterResult" class="result" role="region" aria-live="polite"></p>
+</div>
+</section>
 
-    function calcIdealWeight(){
-      /* Change formulas if using a different method */
-    }
+<!-- ====== Waist-Hip Ratio Calculator ====== -->
+<section id="whr">
+<h2 onclick="toggleSection(this)">Waist-Hip Ratio Calculator <span>▼</span></h2>
+<div class="collapsible-content">
+<label>Waist (cm)</label>
+<input type="number" id="whrWaist" min="1">
+<label>Hip (cm)</label>
+<input type="number" id="whrHip" min="1">
+<button onclick="calcWHR()">Calculate WHR</button>
+<p id="whrResult" class="result" role="region" aria-live="polite"></p>
+<div class="chart-container"><canvas id="whrChart"></canvas></div>
+</div>
+</section>
 
-    function calcOvulation(){
-      /* Adjust ovulation formula if needed */
-    }
+<footer>
+<p>&copy; 2025 Tushar Ahmed | <a href="https://Tushar08521.github.io/">More Tools</a></p>
+</footer>
 
-    function calcCholesterol(){
-      /* Adjust risk categories if needed */
-    }
+<script>
+// Dark mode toggle
+function toggleDarkMode(){document.body.classList.toggle('dark-mode');}
 
-    function calcWater(){
-      /* Change multiplier for different guidelines */
-    }
+// Collapsible sections
+function toggleSection(el){
+const content=el.nextElementSibling;
+const span=el.querySelector('span');
+if(content.style.display==='block'){content.style.display='none';span.textContent='▼';}
+else{content.style.display='block';span.textContent='▲';}
+}
 
-    function calcWHR(){
-      /* Change formula or output text if desired */
-    }
-  </script>
+// ==================== CALCULATOR FUNCTIONS ====================
+
+// BMI
+let bmiChart=null;
+function calcBMI(){
+const w=parseFloat(document.getElementById('bmiWeight').value);
+const h=parseFloat(document.getElementById('bmiHeight').value)/100;
+const resultEl=document.getElementById('bmiResult');
+if(isNaN(w)||w<=0||isNaN(h)||h<=0){alert("Enter valid numbers"); return;}
+const bmi=(w/(h*h)).toFixed(1);
+let category='',color='';
+if(bmi<18.5){category='Underweight';color='orange';}
+else if(bmi<25){category='Normal';color='green';}
+else if(bmi<30){category='Overweight';color='orange';}
+else{category='Obese';color='red';}
+resultEl.textContent=`BMI: ${bmi} (${category})`;
+resultEl.style.backgroundColor=color;color='#fff';
+const ctx=document.getElementById('bmiChart').getContext('2d');
+if(bmiChart) bmiChart.destroy();
+bmiChart=new Chart(ctx,{type:'bar',data:{labels:['BMI'],datasets:[{label:'BMI',data:[bmi],backgroundColor:[color]}]},options:{responsive:true,scales:{y:{beginAtZero:true,max:50}}}});
+}
+
+// BMR
+function calcBMR(){
+const w=parseFloat(document.getElementById('bmrWeight').value);
+const h=parseFloat(document.getElementById('bmrHeight').value);
+const age=parseInt(document.getElementById('bmrAge').value);
+const gender=document.getElementById('bmrGender').value;
+if(!w||!h||!age){alert("Enter valid numbers"); return;}
+let bmr=0;
+if(gender==='male') bmr=88.362 + (13.397*w) + (4.799*h) - (5.677*age);
+else bmr=447.593 + (9.247*w) + (3.098*h) - (4.330*age);
+document.getElementById('bmrResult').textContent=`BMR: ${bmr.toFixed(0)} kcal/day`;
+document.getElementById('tdeeBMR').value=bmr.toFixed(0);
+}
+
+// TDEE
+function calcTDEE(){
+const bmr=parseFloat(document.getElementById('tdeeBMR').value);
+const act=parseFloat(document.getElementById('activity').value);
+if(!bmr||!act){alert("Enter valid numbers"); return;}
+const tdee=(bmr*act).toFixed(0);
+document.getElementById('tdeeResult').textContent=`TDEE: ${tdee} kcal/day`;
+}
+
+// Calorie Needs
+function calcCalories(){
+const w=parseFloat(document.getElementById('calorieWeight').value);
+const h=parseFloat(document.getElementById('calorieHeight').value);
+const age=parseInt(document.getElementById('calorieAge').value);
+const gender=document.getElementById('calorieGender').value;
+const act=parseFloat(document.getElementById('calorieActivity').value);
+if(!w||!h||!age||!act){alert("Enter valid numbers"); return;}
+let bmr=0;
+if(gender==='male') bmr=88.362 + (13.397*w) + (4.799*h) - (5.677*age);
+else bmr=447.593 + (9.247*w) + (3.098*h) - (4.330*age);
+const calories=(bmr*act).toFixed(0);
+document.getElementById('calorieResult').textContent=`Calories Needed: ${calories} kcal/day`;
+}
+
+// Body Fat
+let bfChart=null;
+function calcBodyFat(){
+const w=parseFloat(document.getElementById('bfWeight').value);
+const waist=parseFloat(document.getElementById('bfWaist').value);
+const hip=parseFloat(document.getElementById('bfHip').value);
+const gender=document.getElementById('bfGender').value;
+if(!w||!waist||!hip){alert("Enter valid numbers"); return;}
+let bf=0;
+if(gender==='male') bf=(495/(1.0324-0.19077*Math.log10(waist-hip)+0.15456*Math.log10(0)))-450;
+else bf=(495/(1.29579-0.35004*Math.log10(waist+hip-0.22100))-450);
+bf=Math.round(bf*10)/10;
+document.getElementById('bodyfatResult').textContent=`Body Fat: ${bf}%`;
+const ctx=document.getElementById('bfChart').getContext('2d');
+if(bfChart) bfChart.destroy();
+bfChart=new Chart(ctx,{type:'pie',data:{labels:['Body Fat','Lean Mass'],datasets:[{data:[bf,100-bf],backgroundColor:['#e74c3c','#2ecc71']}]},options:{responsive:true}});
+}
+
+// Ideal Weight
+function calcIdealWeight(){
+const h=parseFloat(document.getElementById('iwHeight').value);
+const gender=document.getElementById('iwGender').value;
+if(!h){alert("Enter valid numbers"); return;}
+let iw=0;
+if(gender==='male') iw=50 + 0.91*(h-152.4);
+else iw=45.5 + 0.91*(h-152.4);
+document.getElementById('iwResult').textContent=`Ideal Weight: ${iw.toFixed(1)} kg`;
+}
+
+// Ovulation
+function calcOvulation(){
+const last=document.getElementById('lastPeriod').value;
+if(!last){alert("Select date"); return;}
+const date=new Date(last);
+const ovulation=new Date(date.setDate(date.getDate()+14));
+document.getElementById('ovResult').textContent=`Estimated Ovulation: ${ovulation.toDateString()}`;
+}
+
+// Cholesterol
+function calcCholesterol(){
+const t=parseFloat(document.getElementById('cholesterolTotal').value);
+const h=parseFloat(document.getElementById('hdl').value);
+const l=parseFloat(document.getElementById('ldl').value);
+if(!t||!h||!l){alert("Enter valid numbers"); return;}
+document.getElementById('cholResult').textContent=`Cholesterol Total: ${t}, HDL: ${h}, LDL: ${l}`;
+}
+
+// Water Intake
+function calcWater(){
+const w=parseFloat(document.getElementById('waterWeight').value);
+if(!w){alert("Enter valid numbers"); return;}
+const water=(w*35/1000).toFixed(2);
+document.getElementById('waterResult').textContent=`Recommended Water Intake: ${water} L/day`;
+}
+
+// WHR
+let whrChart=null;
+function calcWHR(){
+const waist=parseFloat(document.getElementById('whrWaist').value);
+const hip=parseFloat(document.getElementById('whrHip').value);
+if(!waist||!hip){alert("Enter valid numbers"); return;}
+const whr=(waist/hip).toFixed(2);
+document.getElementById('whrResult').textContent=`Waist-Hip Ratio: ${whr}`;
+const ctx=document.getElementById('whrChart').getContext('2d');
+if(whrChart) whrChart.destroy();
+whrChart=new Chart(ctx,{type:'doughnut',data:{labels:['Waist','Hip'],datasets:[{data:[waist,hip],backgroundColor:['#3498db','#9b59b6']}]},options:{responsive:true}});
+}
+</script>
+
 </body>
 </html>

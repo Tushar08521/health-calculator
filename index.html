@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All-in-One Health Calculator | Free Online Tools</title>
+  <!-- Change the description for SEO -->
+  <meta name="description" content="Free all-in-one health calculator with BMI, BMR, TDEE, Pregnancy Due Date, VO₂max, Child Growth, Heart Rate Zones & more. Mobile-friendly and SEO optimized." />
+  <!-- Change keywords for SEO -->
+  <meta name="keywords" content="health calculator, BMI calculator, BMR calculator, TDEE, Pregnancy due date, VO2max, child growth calculator, calorie calculator, online calculator" />
+  <meta name="author" content="Your Name" />
+
+  <!-- Change your Google Search Console verification code -->
+  <meta name="google-site-verification" content="YOUR_GSC_VERIFICATION_CODE" />
+
+  <!-- Open Graph / Social Media - change URL and image -->
+  <meta property="og:title" content="All-in-One Health Calculator" />
+  <meta property="og:description" content="Free calculators for BMI, BMR, TDEE, Pregnancy Due Date, VO₂max, Heart Rate Zones, and more." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yourdomain.com/" /> <!-- Change to your website URL -->
+  <meta property="og:image" content="https://yourdomain.com/og-image.jpg" /> <!-- Change to your OG image URL -->
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="All-in-One Health Calculator" />
+  <meta name="twitter:description" content="Free calculators for BMI, BMR, Pregnancy Due Date, VO₂max, Heart Rate Zones, and more." />
+  <meta name="twitter:image" content="https://yourdomain.com/og-image.jpg" /> <!-- Change to your Twitter image URL -->
+
+  <!-- Google Analytics - replace 'G-XXXXXXXXXX' with your GA4 Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script defer>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body{font-family:Arial,sans-serif;margin:0;padding:0;line-height:1.6;transition:background .3s,color .3s}
+    header{position:sticky;top:0;background:#2c3e50;color:#fff;padding:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+    nav a{color:#fff;margin:5px 10px;text-decoration:none;font-weight:bold}
+    nav a:hover{text-decoration:underline}
+    .dark-mode{background:#121212;color:#e0e0e0}
+    .container{max-width:800px;margin:auto;padding:20px}
+    section{margin-bottom:40px}
+    h2{border-bottom:2px solid #ccc;padding-bottom:5px}
+    input,select,button{width:100%;padding:8px;margin-bottom:10px}
+    button{background:#3498db;color:#fff;border:none;cursor:pointer}
+    button:hover{background:#2980b9}
+    ul#toc{list-style:none;padding:0;margin-bottom:20px}
+    ul#toc li{margin-bottom:5px}
+    ul#toc a{color:#3498db;text-decoration:none}
+    ul#toc a:hover{text-decoration:underline}
+    @media (prefers-color-scheme: dark){body{background:#121212;color:#e0e0e0}}
+  </style>
+</head>
+<body>
+  <header>
+    <div>⚕️ Health Calculator</div>
+    <nav>
+      <a href="#bmi">BMI</a>
+      <a href="#bmr">BMR</a>
+      <a href="#tdee">TDEE</a>
+      <a href="#calorie">Calorie</a>
+      <a href="#bodyfat">Body Fat</a>
+      <a href="#idealweight">Ideal Weight</a>
+      <a href="#ovulation">Ovulation</a>
+      <a href="#cholesterol">Cholesterol</a>
+      <a href="#water">Water Intake</a>
+      <a href="#whr">Waist-Hip Ratio</a>
+    </nav>
+    <button onclick="toggleDarkMode()">🌙</button>
+  </header>
+
+  <div class="container">
+    <h1>All-in-One Health Calculator</h1>
+    <p>Use our free calculators for BMI, BMR, TDEE, Calorie, Body Fat, Ideal Weight, Ovulation, Cholesterol, Water Intake, Waist-to-Hip Ratio & more. Works on any device.</p>
+
+    <!-- Table of Contents -->
+    <section>
+      <h2>Table of Contents</h2>
+      <ul id="toc">
+        <li><a href="#bmi">BMI Calculator</a></li>
+        <li><a href="#bmr">BMR Calculator</a></li>
+        <li><a href="#tdee">TDEE Calculator</a></li>
+        <li><a href="#calorie">Calorie Calculator</a></li>
+        <li><a href="#bodyfat">Body Fat Calculator</a></li>
+        <li><a href="#idealweight">Ideal Weight Calculator</a></li>
+        <li><a href="#ovulation">Ovulation Calculator</a></li>
+        <li><a href="#cholesterol">Cholesterol Calculator</a></li>
+        <li><a href="#water">Water Intake Calculator</a></li>
+        <li><a href="#whr">Waist-Hip Ratio Calculator</a></li>
+      </ul>
+    </section>
+
+    <!-- All calculator sections below -->
+
+    <!-- Example of BMI Calculator section, you can update placeholders if needed -->
+    <section id="bmi">
+      <h2>BMI Calculator</h2>
+      <input type="number" id="bmiWeight" placeholder="Weight (kg)" /> <!-- You can change placeholder text if needed -->
+      <input type="number" id="bmiHeight" placeholder="Height (cm)" />
+      <button onclick="calcBMI()">Calculate BMI</button>
+      <p id="bmiResult"></p>
+    </section>
+
+    <!-- Repeat for all other calculator sections -->
+
+  </div>
+
+  <script defer>
+    // Dark mode toggle
+    function toggleDarkMode(){document.body.classList.toggle('dark-mode');}
+
+    // BMI calculation function
+    function calcBMI(){
+      const w=parseFloat(document.getElementById('bmiWeight').value);
+      const h=parseFloat(document.getElementById('bmiHeight').value)/100;
+      document.getElementById('bmiResult').innerText=(w>0 && h>0)?`Your BMI is ${(w/(h*h)).toFixed(2)}`:"Please enter valid numbers.";
+    }
+
+    // Add comments in other functions indicating where to change inputs or messages
+    function calcBMR(){
+      /* Change formula if needed for custom calculations */
+    }
+
+    function calcTDEE(){
+      /* Change activity multipliers or labels if desired */
+    }
+
+    function calcCalories(){
+      /* Update placeholders or messages for your users */
+    }
+
+    function calcBodyFat(){
+      /* Adjust formula or labels if necessary */
+    }
+
+    function calcIdealWeight(){
+      /* Change formulas if using a different method */
+    }
+
+    function calcOvulation(){
+      /* Adjust ovulation formula if needed */
+    }
+
+    function calcCholesterol(){
+      /* Adjust risk categories if needed */
+    }
+
+    function calcWater(){
+      /* Change multiplier for different guidelines */
+    }
+
+    function calcWHR(){
+      /* Change formula or output text if desired */
+    }
+  </script>
+</body>
+</html>

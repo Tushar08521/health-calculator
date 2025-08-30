@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://Tushar08521.github.io/health-calculator/sitemap.xml
